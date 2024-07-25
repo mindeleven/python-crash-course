@@ -45,10 +45,8 @@ class AlienInvasion:
         while True:
             # nested for loop is an event loop
             # watch the keyboard and mouse events
-            # we're accessing events with pygame.event.get()
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
+            # isolating the event loop and moving it to a helper method
+            self._check_events()
 
             # filling the screen with the background color
             self.screen.fill(self.settings.bg_color)
@@ -62,6 +60,13 @@ class AlienInvasion:
             self.clock.tick(60) # argument is frame rate for the game
             # here we tell pygame to do its best so that the loop will 
             # run 60 times per second
+
+    def _check_events(self):
+        """Respond to keypress and mouse events."""
+        # we're accessing events with pygame.event.get()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
 
 if __name__ == '__main__':
     # make a game instance and run the game
