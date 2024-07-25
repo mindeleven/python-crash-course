@@ -6,6 +6,8 @@ import sys
 # pygame module contains functionality we need to make a game
 import pygame
 
+from settings import Settings
+
 class AlienInvasion:
     """Overall class to manage game assets and behavior."""
 
@@ -17,18 +19,20 @@ class AlienInvasion:
         # controlling the frame rate by setting up a clock
         # creating an instance of the class Clock from the pygame.time module
         self.clock = pygame.time.Clock()
+        # accessing the settings
+        self.settings = Settings()
         
         # creating a display window 
         # to draw the games graphical elements on
-        self.screen = pygame.display.set_mode((1200, 800)) # tuple defines dimensions
+        self.screen = pygame.display.set_mode((
+            self.settings.screen_width,
+            self.settings.screen_height
+        )) # tuple defines dimensions
         # object we assign to self.screen is called surface
         # once the game's animation loop is activated the surface will be redrawn
         # on every pass through the loop
 
         pygame.display.set_caption("Alien Invasion")
-
-        # setting the background color
-        self.bg_color = (230, 230, 230) # light grey
 
     def run_game(self):
         """Start the main loop for the game."""
@@ -43,7 +47,7 @@ class AlienInvasion:
                     sys.exit()
 
             # filling the screen with the background color
-            self.screen.fill(self.bg_color)
+            self.screen.fill(self.settings.bg_color)
 
             # make the most recent drawn screen visible
             pygame.display.flip()
