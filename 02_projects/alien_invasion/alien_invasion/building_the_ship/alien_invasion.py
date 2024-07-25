@@ -48,13 +48,8 @@ class AlienInvasion:
             # isolating the event loop and moving it to a helper method
             self._check_events()
 
-            # filling the screen with the background color
-            self.screen.fill(self.settings.bg_color)
-            # position the ship
-            self.ship.blitme()
-
-            # make the most recent drawn screen visible
-            pygame.display.flip()
+            # updating the screen
+            self._update_screen_self()
 
             # making the clock tick
             self.clock.tick(60) # argument is frame rate for the game
@@ -65,8 +60,19 @@ class AlienInvasion:
         """Respond to keypress and mouse events."""
         # we're accessing events with pygame.event.get()
         for event in pygame.event.get():
+            # checking whether the player has clicked to close the window
             if event.type == pygame.QUIT:
                 sys.exit()
+    
+    def _update_screen_self(self):
+        """Update images on the screen and flip to a new screen"""
+        # filling the screen with the background color
+        self.screen.fill(self.settings.bg_color)
+        # position the ship
+        self.ship.blitme()
+
+        # make the most recent drawn screen visible
+        pygame.display.flip()
 
 if __name__ == '__main__':
     # make a game instance and run the game
