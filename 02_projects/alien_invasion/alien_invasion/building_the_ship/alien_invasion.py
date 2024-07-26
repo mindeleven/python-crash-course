@@ -48,6 +48,9 @@ class AlienInvasion:
             # isolating the event loop and moving it to a helper method
             self._check_events()
 
+            # ships position will be updated after check for keyboard events
+            self.ship.update()
+
             # updating the screen
             self._update_screen_self()
 
@@ -55,7 +58,7 @@ class AlienInvasion:
             self.clock.tick(60) # argument is frame rate for the game
             # here we tell pygame to do its best so that the loop will 
             # run 60 times per second
-
+            
     def _check_events(self):
         """Respond to keypress and mouse events."""
         # we're accessing events with pygame.event.get()
@@ -68,8 +71,13 @@ class AlienInvasion:
                 # does the key that has been pressed trigger a certain action?
                 if event.key == pygame.K_RIGHT:
                     # move the ship to the right
-                    self.ship.rect.x += 1
-    
+                    # self.ship.rect.x += 1
+                    self.ship.moving_right = True
+            # new block responding to keyup events
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_RIGHT:
+                    self.ship.moving_right = False
+
     def _update_screen_self(self):
         """Update images on the screen and flip to a new screen"""
         # filling the screen with the background color
